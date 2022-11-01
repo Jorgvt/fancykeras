@@ -15,15 +15,17 @@ class EvaluateDataset(Callback):
 
     def __init__(self,
                  dataset, # Dataset to be evaluated.
-                 freq_epochs, # Number of epochs to wait between evaluations. `None` means not evaluating at an epoch interval.
-                 freq_batches, # Number of batches to wait between evaluations. `None` means not evaluating at a batch interval.
+                 freq_epochs=None, # Number of epochs to wait between evaluations. `None` means not evaluating at an epoch interval.
+                 freq_batches=None, # Number of batches to wait between evaluations. `None` means not evaluating at a batch interval.
+                 append="", # Text to append to the metrics' names as an identifier.
                  ):
         self.dataset = dataset if isinstance(dataset, tf.data.Dataset) else self._convert_to_dataset(dataset)
         self.freq_epochs = freq_epochs
         self.freq_batches = freq_batches
+        self.append = append
         self.batches_seen, self.epochs_seen = 0, 0
         self._results_batches, self._results_epochs = [], []
-
+        self.cuac, self.cuac2 = 0, 0
     def _convert_to_dataset(self,
                             dataset, # Dataset to be converted.
                             ):
@@ -33,13 +35,16 @@ class EvaluateDataset(Callback):
     def evaluate(self,
                  ) -> Dict: # Dictionary of evaluation results.
         """Calls the `.evaluate()` method of the given `model` on the stored `dataset`."""
-        return self.model.evaluate(self.dataset)
+        return {f"{name}{self.append}": value for name, value in self.model.evaluate(self.dataset, verbose=0, return_dict=True).items()}
 
     def on_train_batch_end(self,
-                           batch, # Batch number in an epoch
+                           batch, # Batch number in an epoch.
                            logs=None, # Training logs.
                            ):
-        if self.freq_batches is None: return
+        self.cuac += 1
+        if self.freq_batches is None: 
+            self.cuac2 += 1
+            return
         else:
             if self.batches_seen % self.freq_batches == 0: 
                 results = self.evaluate()
@@ -47,7 +52,7 @@ class EvaluateDataset(Callback):
             self.batches_seen += 1
     
     def on_epoch_end(self,
-                     batch, # Batch number in an epoch
+                     batch, # Batch number in an epoch.
                      logs=None, # Training logs.
                      ):
         if self.freq_epochs is None: return
@@ -57,11 +62,13 @@ class EvaluateDataset(Callback):
                 self._results_epochs.append(results)
             self.epochs_seen += 1
     
+    @staticmethod
     def _unpack_list_dicts(list_of_dicts):
         """Unpacks a list of dicts sharing keys into a dict with lists as values."""
         res = {}
         for result in list_of_dicts:
             for metric, value in result.items():
+                if metric not in res.keys(): res[metric] = []
                 res[metric].append(value)
         return res
 

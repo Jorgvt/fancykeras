@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "fancykeras",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation."
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "fancykeras",
+    "section": "Install",
+    "text": "Install\npip install fancykeras"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "fancykeras",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2"
+  },
+  {
+    "objectID": "00_Callbacks/evaluation.html",
+    "href": "00_Callbacks/evaluation.html",
+    "title": "Evaluation",
+    "section": "",
+    "text": "EvaluateDataset\n\n EvaluateDataset (dataset, freq_epochs=None, freq_batches=None, append='')\n\nEvaluates a given tf.data.Dataset at different training times.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ndataset\n\n\nDataset to be evaluated.\n\n\nfreq_epochs\nNoneType\nNone\nNumber of epochs to wait between evaluations. None means not evaluating at an epoch interval.\n\n\nfreq_batches\nNoneType\nNone\nNumber of batches to wait between evaluations. None means not evaluating at a batch interval.\n\n\nappend\nstr\n\nText to append to the metrics’ names as an identifier.\n\n\n\n\nfrom iqadatasets.datasets.tid2013 import TID2013\nfrom iqadatasets.datasets.tid2008 import TID2008\n\n\ntid13 = TID2013(\"/media/disk/databases/BBDD_video_image/Image_Quality/TID/TID2013\")\ntid08 = TID2013(\"/media/disk/databases/BBDD_video_image/Image_Quality/TID/TID2008\")\n\n\nfrom perceptnet.networks import PerceptNet\nfrom perceptnet.pearson_loss import PearsonCorrelation\n\n\nmodel = PerceptNet(kernel_initializer=\"ones\", gdn_kernel_size=1, learnable_undersampling=False)\nmodel.compile(optimizer=\"adam\",\n              loss=PearsonCorrelation())\n\n\ncb_eval = EvaluateDataset(tid13.dataset.batch(16).take(4), freq_batches=5, append=\"_TID2013\")\nhistory = model.fit(tid08.dataset.batch(16).take(10), epochs=2, callbacks=[cb_eval])\n\n\ncb_eval.results_batches\n\n{'loss_TID2013': [-0.9020472764968872,\n  -0.9032243490219116,\n  -0.9034193754196167,\n  -0.9044590592384338]}"
+  }
+]
