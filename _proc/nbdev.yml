@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "fancykeras"
+  site-url: "https://Jorgvt.github.io/fancykeras"
+  description: "Fancy and useful Keras shortcuts."
+  repo-branch: main
+  repo-url: "https://github.com/Jorgvt/fancykeras"
