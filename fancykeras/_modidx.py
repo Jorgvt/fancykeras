@@ -23,4 +23,5 @@ d = { 'settings': { 'branch': 'main',
                                                                                                                       'fancykeras/callbacks/evaluation.py'),
                                                  'fancykeras.callbacks.evaluation.EvaluateDataset.results_epochs': ( '00_Callbacks/evaluation.html#evaluatedataset.results_epochs',
                                                                                                                      'fancykeras/callbacks/evaluation.py')},
-            'fancykeras.core': {'fancykeras.core.foo': ('core.html#foo', 'fancykeras/core.py')}}}
+            'fancykeras.core': {'fancykeras.core.foo': ('core.html#foo', 'fancykeras/core.py')},
+            'fancykeras.selfsupervised.jigsaw_puzzle': {}}}
