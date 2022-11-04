@@ -25,7 +25,7 @@ class EvaluateDataset(Callback):
         self.append = append
         self.batches_seen, self.epochs_seen = 0, 0
         self._results_batches, self._results_epochs = [], []
-        self.cuac, self.cuac2 = 0, 0
+
     def _convert_to_dataset(self,
                             dataset, # Dataset to be converted.
                             ):
@@ -41,10 +41,8 @@ class EvaluateDataset(Callback):
                            batch, # Batch number in an epoch.
                            logs=None, # Training logs.
                            ):
-        self.cuac += 1
-        if self.freq_batches is None: 
-            self.cuac2 += 1
-            return
+
+        if self.freq_batches is None: return
         else:
             if self.batches_seen % self.freq_batches == 0: 
                 results = self.evaluate()
