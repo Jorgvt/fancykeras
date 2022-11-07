@@ -16,13 +16,11 @@ class EvaluateDataset(Callback):
 
     def __init__(self,
                  dataset, # Dataset to be evaluated.
-                 subset=None, # Layers interval to evaluate.
                  freq_epochs=None, # Number of epochs to wait between evaluations. `None` means not evaluating at an epoch interval.
                  freq_batches=None, # Number of batches to wait between evaluations. `None` means not evaluating at a batch interval.
                  append="", # Text to append to the metrics' names as an identifier.
                  ):
         self.dataset = dataset if isinstance(dataset, tf.data.Dataset) else self._convert_to_dataset(dataset)
-        self.subset = subset
         self.freq_epochs = freq_epochs
         self.freq_batches = freq_batches
         self.append = append
@@ -38,12 +36,7 @@ class EvaluateDataset(Callback):
     def evaluate(self,
                  ) -> Dict: # Dictionary of evaluation results.
         """Calls the `.evaluate()` method of the given `model` on the stored `dataset`."""
-        return {f"{name}{self.append}": value for name, value in self._model.evaluate(self.dataset, verbose=0, return_dict=True).items()}
-
-    def on_train_begin(self,
-                       logs=None,
-                       ):
-        self._model = self.model if self.subset is None else Sequential(self._model.layers[:self.subset])
+        return {f"{name}{self.append}": value for name, value in self.model.evaluate(self.dataset, verbose=0, return_dict=True).items()}
 
     def on_train_batch_end(self,
                            batch, # Batch number in an epoch.
