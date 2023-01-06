@@ -5,3 +5,9 @@ website:
       - section: Callbacks
         contents:
           - 00_Callbacks/00_00_evaluation.ipynb
+      - section: SelfSupervised
+        contents:
+          - 01_SelfSupervised/01_00_jigsaw_puzzle.ipynb
+      - section: Layers
+        contents:
+          - 02_Layers/02_00_skip_connection.ipynb
