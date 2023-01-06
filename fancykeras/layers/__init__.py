@@ -1,1 +1,1 @@
-from skip_connection import *
+from .skip_connection import *
