@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://Jorgvt.github.io/fancykeras/02_Layers/skip_connection.html</loc>
+    <lastmod>2023-01-06T17:12:11.101Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Jorgvt.github.io/fancykeras/00_Callbacks/evaluation.html</loc>
+    <lastmod>2023-01-06T17:12:11.873Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Jorgvt.github.io/fancykeras/index.html</loc>
+    <lastmod>2023-01-06T17:12:12.433Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Jorgvt.github.io/fancykeras/01_SelfSupervised/jigsaw_puzzle.html</loc>
+    <lastmod>2023-01-06T17:12:12.873Z</lastmod>
+  </url>
+</urlset>
